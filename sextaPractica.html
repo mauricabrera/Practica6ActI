@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<HTML>
+<header>
+<script src="jquery-1.11.2.min.js"> </script> 
+<script type="text/javascript">
+$(document).ready(function() {
+
+    $('#create_account').click(function(){
+
+        var dataString = $('#form_account').serialize();
+
+        alert('Datos serializados: '+dataString);
+
+        $.ajax({
+            type: "POST",
+            url: "responder.php",
+            data: dataString,
+            success: function(data) {
+				$("#content_div").append(data.name);
+				$("#content_div").append(data.email);
+				$("#content_div").append(data.password);
+				alert(data);
+            }
+        });
+    });
+});
+</script>
+</header>
+<body>
+<form id="form_account" method="post">
+    Nombre: <input type="text" name="name" id="name" /><br/><br/>
+    Email: <input type="text" name="email" id="email" /><br/><br/>
+    Contraseña: <input type="password" name="password" id="password" /><br/><br/>
+    <input type="submit" name="enviar" value="Enviar" id="create_account" />
+</form>
+<div id="content_div"></div>
+</body>
+
+</HTML>
